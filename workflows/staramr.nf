@@ -35,7 +35,8 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { INPUT_CHECK    } from '../subworkflows/local/input_check'
+include { STARAMR_SEARCH } from '../modules/local/staramr/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,6 +49,7 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
+include { SPADES                      } from '../modules/nf-core/spades/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -108,6 +110,22 @@ workflow STARAMR {
         ch_multiqc_logo.toList()
     )
     multiqc_report = MULTIQC.out.report.toList()
+
+    //
+    // MODULE: SPAdes
+    //
+    SPADES (
+        INPUT_CHECK.out.reads.map { [it[0], it[1], [], []] }, // tuple val(meta), path(illumina), path(pacbio), path(nanopore)
+        [], // val yml
+        []  // val hmm
+    )
+
+    //
+    // MODULE: StarAMR
+    //
+    STARAMR_SEARCH (
+        SPADES.out.contigs
+    )
 }
 
 /*
