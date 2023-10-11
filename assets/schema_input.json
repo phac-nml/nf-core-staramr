@@ -10,27 +10,15 @@
             "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
+                "meta": ["id"],
                 "errorMessage": "Sample name must be provided and cannot contain spaces"
             },
-            "fastq_1": {
+            "contigs": {
                 "type": "string",
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
-            },
-            "fastq_2": {
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+\\.f(ast)?q\\.gz$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ]
+                "pattern": "^\\S+\\.f(ast)?a\\.gz$",
+                "errorMessage": "FASTA file containing assembled contigs, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "contigs"]
     }
 }
