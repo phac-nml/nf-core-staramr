@@ -17,6 +17,11 @@
                 "type": "string",
                 "pattern": "^\\S+\\.f(ast)?a\\.gz$",
                 "errorMessage": "FASTA file containing assembled contigs, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'"
+            },
+            "species": {
+                "type": "string",
+                "meta": ["species"],
+                "errorMessage": "The name of the species."
             }
         },
         "required": ["sample", "contigs"]
