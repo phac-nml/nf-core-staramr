@@ -34,7 +34,6 @@ process STARAMR_SEARCH {
         gzip -c -d $contigs > $genome_uncompressed_name
     fi
 
-    mlst --list; 
     staramr \\
         search \\
         $args \\
