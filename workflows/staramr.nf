@@ -55,6 +55,7 @@ workflow STARAMR {
     // Create a new channel of metadata from a sample sheet
     // NB: `input` corresponds to `params.input` and associated sample sheet schema
     ch_input = Channel.fromSamplesheet("input")
+    ch_input.view()
 
     //
     // MODULE: StarAMR

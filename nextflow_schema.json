@@ -245,11 +245,5 @@
             "$ref": "#/definitions/generic_options"
         }
     ],
-    "properties": {
-        "pointfinder": {
-            "type": "boolean",
-            "hidden": true,
-            "description": "Boolean whether to run a Pointfinder search."
-        }
-    }
+    "properties": {}
 }

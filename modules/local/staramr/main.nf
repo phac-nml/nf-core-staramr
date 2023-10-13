@@ -8,7 +8,7 @@ process STARAMR_SEARCH {
         'biocontainers/staramr:0.10.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(genome_fasta) // genome as a fasta file
+    tuple val(meta), path(contigs), val(pointfinder_database), val(plasmidfinder_database)
 
     output:
     tuple val(meta), path("*_results/results.xlsx")        , emit: results_xlsx
@@ -27,11 +27,11 @@ process STARAMR_SEARCH {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def is_gzipped = genome_fasta.getName().endsWith(".gz") ? true : false
-    def genome_uncompressed_name = genome_fasta.getName().replace(".gz", "")
+    def is_gzipped = contigs.getName().endsWith(".gz") ? true : false
+    def genome_uncompressed_name = contigs.getName().replace(".gz", "")
     """
     if [ "$is_gzipped" = "true" ]; then
-        gzip -c -d $genome_fasta > $genome_uncompressed_name
+        gzip -c -d $contigs > $genome_uncompressed_name
     fi
 
     staramr \\

@@ -18,10 +18,13 @@
                 "pattern": "^\\S+\\.f(ast)?a\\.gz$",
                 "errorMessage": "FASTA file containing assembled contigs, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'"
             },
-            "species": {
+            "pointfinder_database": {
                 "type": "string",
-                "meta": ["species"],
-                "errorMessage": "The name of the species."
+                "errorMessage": "The name of the pointfinder database to use."
+            },
+            "plasmidfinder_database": {
+                "type": "string",
+                "errorMessage": "The name of the plasmidfinder database to use."
             }
         },
         "required": ["sample", "contigs"]
