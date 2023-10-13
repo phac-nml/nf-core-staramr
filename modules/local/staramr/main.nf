@@ -8,7 +8,7 @@ process STARAMR_SEARCH {
         'biocontainers/staramr:0.10.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(contigs), val(pointfinder_database), val(plasmidfinder_database)
+    tuple val(meta), path(contigs), val(pointfinder_database), val(plasmidfinder_database), val(mlst_scheme)
 
     output:
     tuple val(meta), path("*_results/results.xlsx")        , emit: results_xlsx
@@ -34,6 +34,7 @@ process STARAMR_SEARCH {
         gzip -c -d $contigs > $genome_uncompressed_name
     fi
 
+    mlst --list; 
     staramr \\
         search \\
         $args \\

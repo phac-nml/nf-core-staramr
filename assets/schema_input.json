@@ -25,6 +25,10 @@
             "plasmidfinder_database": {
                 "type": "string",
                 "errorMessage": "The name of the plasmidfinder database to use."
+            },
+            "mlst_scheme": {
+                "type": "string",
+                "errorMessage": "The name of the MLST scheme to use."
             }
         },
         "required": ["sample", "contigs"]
