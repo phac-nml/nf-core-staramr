@@ -8,7 +8,7 @@ process STARAMR_SEARCH {
         'biocontainers/staramr:0.10.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(contigs), val(pointfinder_database), val(plasmidfinder_database), val(mlst_scheme)
+    tuple val(meta), path(contigs)
 
     output:
     tuple val(meta), path("*_results/results.xlsx")        , emit: results_xlsx
