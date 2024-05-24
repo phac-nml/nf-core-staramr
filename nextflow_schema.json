@@ -258,15 +258,15 @@
     "properties": {
         "pointfinder_database": {
             "type": "string",
-            "default": "None"
+            "default": "null"
         },
         "plasmidfinder_database": {
             "type": "string",
-            "default": "None"
+            "default": "null"
         },
         "mlst_scheme": {
             "type": "string",
-            "default": "None"
+            "default": "null"
         }
     }
 }
