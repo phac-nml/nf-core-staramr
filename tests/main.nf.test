@@ -7,7 +7,7 @@ nextflow_pipeline {
 
         when {
             params {
-                input = "https://github.com/phac-nml/nf-core-staramr/raw/dev/assets/samplesheet.csv"
+                input = "$baseDir/tests/assets/test_samplesheet.csv"
                 outdir = "$baseDir/tests/results"
             }
         }
