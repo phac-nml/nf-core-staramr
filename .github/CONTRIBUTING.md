@@ -9,10 +9,6 @@ Please use the pre-filled template to save time.
 However, don't be put off by this template - other more general issues and suggestions are welcome!
 Contributions to the code are even more welcome ;)
 
-:::info
-If you need help using or modifying nf-core/staramr then the best place to ask is on the nf-core Slack [#staramr](https://nfcore.slack.com/channels/staramr) channel ([join our Slack here](https://nf-co.re/join/slack)).
-:::
-
 ## Contribution workflow
 
 If you'd like to write some code for nf-core/staramr, the standard workflow is as follows:
@@ -50,13 +46,13 @@ These tests are run both with the latest available version of `Nextflow` and als
 
 :warning: Only in the unlikely and regretful event of a release happening with a bug.
 
-- On your own fork, make a new branch `patch` based on `upstream/master`.
+- On your own fork, make a new branch `patch` based on `upstream/main`.
 - Fix the bug, and bump version (X.Y.Z+1).
-- A PR should be made on `master` from patch to directly this particular bug.
+- A PR should be made on `main` from patch to directly this particular bug.
 
 ## Getting help
 
-For further information/help, please consult the [nf-core/staramr documentation](https://nf-co.re/staramr/usage) and don't hesitate to get in touch on the nf-core Slack [#staramr](https://nfcore.slack.com/channels/staramr) channel ([join our Slack here](https://nf-co.re/join/slack)).
+For further information/help, please consult the [nf-core/staramr documentation](https://nf-co.re/staramr/usage).
 
 ## Pipeline contribution conventions
 
@@ -85,7 +81,7 @@ Once there, use `nf-core schema build` to add to `nextflow_schema.json`.
 
 ### Default processes resource requirements
 
-Sensible defaults for process resource requirements (CPUs / memory / time) for a process should be defined in `conf/base.config`. These should generally be specified generic with `withLabel:` selectors so they can be shared across multiple processes/steps of the pipeline. A nf-core standard set of labels that should be followed where possible can be seen in the [nf-core pipeline template](https://github.com/nf-core/tools/blob/master/nf_core/pipeline-template/conf/base.config), which has the default process as a single core-process, and then different levels of multi-core configurations for increasingly large memory requirements defined with standardised labels.
+Sensible defaults for process resource requirements (CPUs / memory / time) for a process should be defined in `conf/base.config`. These should generally be specified generic with `withLabel:` selectors so they can be shared across multiple processes/steps of the pipeline. A nf-core standard set of labels that should be followed where possible can be seen in the [nf-core pipeline template](https://github.com/nf-core/tools/blob/main/nf_core/pipeline-template/conf/base.config), which has the default process as a single core-process, and then different levels of multi-core configurations for increasingly large memory requirements defined with standardised labels.
 
 The process resources can be passed on to the tool dynamically within the process with the `${task.cpu}` and `${task.memory}` variables in the `script:` block.
 
