@@ -1,13 +1,12 @@
 [![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A523.04.3-brightgreen.svg)](https://www.nextflow.io/)
-# `staramr`: nextflow pipeline
 
+# `staramr`: nextflow pipeline
 
 ## Introduction
 
 **staramr: nextflow pipeline** is the nextflow adaptation of the [staramr](https://github.com/phac-nml/staramr/)
 
->`staramr` (*AMR) scans bacterial genome contigs against the [ResFinder][resfinder-db], [PointFinder][pointfinder-db], and [PlasmidFinder][plasmidfinder-db] databases (used by the [ResFinder webservice][resfinder-web] and other webservices offered by the Center for Genomic Epidemiology) and compiles a summary report of detected antimicrobial resistance genes. The `star|*` in `staramr` indicates that it can handle all of the ResFinder, PointFinder, and PlasmidFinder databases.
->
+> `staramr` (_AMR) scans bacterial genome contigs against the [ResFinder][resfinder-db], [PointFinder][pointfinder-db], and [PlasmidFinder][plasmidfinder-db] databases (used by the [ResFinder webservice][resfinder-web] and other webservices offered by the Center for Genomic Epidemiology) and compiles a summary report of detected antimicrobial resistance genes. The `star|_`in`staramr` indicates that it can handle all of the ResFinder, PointFinder, and PlasmidFinder databases.
 
 ## Usage
 
@@ -23,9 +22,9 @@ with `-profile test` before running the workflow on actual data.
 
 The input to the pipeline is a standard sample sheet (passed as `--input samplesheet.csv`) that looks like:
 
-| sample  | contigs         | species        |
-| ------- | --------------- | --------------- |
-| SampleA | genomeA.fastq.gz| Salmonella enterica |
+| sample  | contigs          | species             |
+| ------- | ---------------- | ------------------- |
+| SampleA | genomeA.fastq.gz | Salmonella enterica |
 
 The structure of this file is defined in [assets/schema_input.json](assets/schema_input.json). Validation of the sample sheet is performed by [nf-validation](https://nextflow-io.github.io/nf-validation/).
 
@@ -42,6 +41,7 @@ results/staramr/
     ├── settings.txt
     └── summary.tsv
 ```
+
 See the [staramr documentation](https://github.com/phac-nml/staramr/blob/development/README.md) for more details and explanations.
 
 ## Citation
@@ -58,12 +58,12 @@ See the [staramr documentation](https://github.com/phac-nml/staramr/blob/develop
 
 > **Carattoli A, Zankari E, Garcia-Fernandez A, Voldby Larsen M, Lund O, Villa L, Aarestrup FM, Hasman H**. PlasmidFinder and pMLST: in silico detection and typing of plasmids. Antimicrob. Agents Chemother. 2014. April 28th. doi: [10.1128/AAC.02412-14][plasmidfinder-cite]
 
->**Seemann T**, MLST Github https://github.com/tseemann/mlst
+> **Seemann T**, MLST Github https://github.com/tseemann/mlst
 
->**Jolley KA, Bray JE and Maiden MCJ**. Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications [version 1; peer review: 2 approved]. Wellcome Open Res 2018, 3:124. doi: [10.12688/wellcomeopenres.14826.1][mlst-cite]
-
+> **Jolley KA, Bray JE and Maiden MCJ**. Open-access bacterial population genomics: BIGSdb software, the PubMLST.org website and their applications [version 1; peer review: 2 approved]. Wellcome Open Res 2018, 3:124. doi: [10.12688/wellcomeopenres.14826.1][mlst-cite]
 
 ### nf-core
+
 This pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/master/LICENSE).
 
 > The nf-core framework for community-curated bioinformatics pipelines.
