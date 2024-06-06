@@ -52,7 +52,7 @@ These tests are run both with the latest available version of `Nextflow` and als
 
 ## Getting help
 
-For further information/help, please consult the [nf-core/staramr documentation](https://nf-co.re/staramr/usage).
+For further information/help, please consult the [nf-core/staramr documentation](https://github.com/phac-nml/staramrnf).
 
 ## Pipeline contribution conventions
 
