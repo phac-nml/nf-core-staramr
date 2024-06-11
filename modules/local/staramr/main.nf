@@ -34,12 +34,15 @@ process STARAMR_SEARCH {
         gzip -c -d $contigs > $genome_uncompressed_name
     fi
 
+    #Change name of input genome to sample name to allow irida-next output of metadata
+    mv $genome_uncompressed_name ${meta.id}
+
     staramr \\
         search \\
         $args \\
         --nprocs $task.cpus \\
         -o ${prefix}_results \\
-        $genome_uncompressed_name
+        $meta.id
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
