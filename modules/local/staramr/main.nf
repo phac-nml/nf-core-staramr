@@ -29,20 +29,21 @@ process STARAMR_SEARCH {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def is_gzipped = contigs.getName().endsWith(".gz") ? true : false
     def genome_uncompressed_name = contigs.getName().replace(".gz", "")
+    def genome_filename = "${meta.id}.fasta"
     """
     if [ "$is_gzipped" = "true" ]; then
         gzip -c -d $contigs > $genome_uncompressed_name
     fi
 
-    #Change name of input genome to sample name to allow irida-next output of metadata
-    mv $genome_uncompressed_name ${meta.id}
+    #Change name of input genome to allow irida-next output of metadata
+    mv $genome_uncompressed_name $genome_filename
 
     staramr \\
         search \\
         $args \\
         --nprocs $task.cpus \\
         -o ${prefix}_results \\
-        $meta.id
+        $genome_filename
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
