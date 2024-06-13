@@ -14,6 +14,23 @@ nextflow_pipeline {
 
         then {
             assert workflow.success
+            assert path("$baseDir/tests/results").exists()
+
+            // compare IRIDA Next JSON output
+            assert path("$baseDir/tests/results/iridanext.output.json").exists()
+            def iridanext_json = path("$baseDir/tests/results/iridanext.output.json").json
+            def iridanext_global = iridanext_json.files.global
+            def iridanext_samples = iridanext_json.files.samples
+            def iridanext_metadata = iridanext_json.metadata.samples
+            def salmonella_metadata = iridanext_metadata.GCA_000008105
+
+            assert iridanext_metadata.GCA_000008105."Quality Module" == "Passed"
+            assert iridanext_metadata.GCA_000008105."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, amoxicillin/clavulanic acid, cefoxitin, ceftriaxone, chloramphenicol, trimethoprim, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
+            assert iridanext_metadata.GCA_000008105."CGE Predicted Phenotype" == "Spectinomycin, Streptomycin, Neomycin, Kanamycin, Lividomycin, Paromomycin, Ribostamycin, Amoxicillin, Amoxicillin+Clavulanic acid, Ampicillin, Ampicillin+Clavulanic acid, Cefotaxime, Cefoxitin, Ceftazidime, Piperacillin, Piperacillin+Tazobactam, Ticarcillin, Ticarcillin+Clavulanic acid, Cephalothin, Chloramphenicol, Trimethoprim, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
+            assert iridanext_metadata.GCA_000008105."Genotype" == "aadA1, aadA2, aadA2, aph(3'')-Ib, aph(3')-Ia, blaCMY-2, blaTEM-1B, cmlA1, dfrA12, qacE, sul1, sul3, tet(A)"
+            assert iridanext_metadata.GCA_000008105."Plasmid" == "IncFIB(K), IncFIB(S), IncFII(S)"
+            assert iridanext_metadata.GCA_000008105."Scheme" == "senterica_achtman_2"
+            assert iridanext_metadata.GCA_000008105."Sequence Type" == "66"
         }
 
     }
