@@ -22,15 +22,37 @@ nextflow_pipeline {
             def iridanext_global = iridanext_json.files.global
             def iridanext_samples = iridanext_json.files.samples
             def iridanext_metadata = iridanext_json.metadata.samples
-            def salmonella_metadata = iridanext_metadata.GCA_000008105
 
-            //assert iridanext_metadata.GCA_000008105."Quality Module" == "Passed"
-            //assert iridanext_metadata.GCA_000008105."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, amoxicillin/clavulanic acid, cefoxitin, ceftriaxone, chloramphenicol, trimethoprim, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
-            //assert iridanext_metadata.GCA_000008105."CGE Predicted Phenotype" == "Spectinomycin, Streptomycin, Neomycin, Kanamycin, Lividomycin, Paromomycin, Ribostamycin, Amoxicillin, Amoxicillin+Clavulanic acid, Ampicillin, Ampicillin+Clavulanic acid, Cefotaxime, Cefoxitin, Ceftazidime, Piperacillin, Piperacillin+Tazobactam, Ticarcillin, Ticarcillin+Clavulanic acid, Cephalothin, Chloramphenicol, Trimethoprim, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
-            //assert iridanext_metadata.GCA_000008105."Genotype" == "aadA1, aadA2, aadA2, aph(3'')-Ib, aph(3')-Ia, blaCMY-2, blaTEM-1B, cmlA1, dfrA12, qacE, sul1, sul3, tet(A)"
-            //assert iridanext_metadata.GCA_000008105."Plasmid" == "IncFIB(K), IncFIB(S), IncFII(S)"
-            //assert iridanext_metadata.GCA_000008105."Scheme" == "senterica_achtman_2"
-            //assert iridanext_metadata.GCA_000008105."Sequence Type" == "66"
+            // Salmonella tests
+            def salmonella_metadata = iridanext_metadata.GCA_000008105
+            assert salmonella_metadata."Quality Module" == "Passed"
+            assert salmonella_metadata."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, amoxicillin/clavulanic acid, cefoxitin, ceftriaxone, chloramphenicol, trimethoprim, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
+            assert salmonella_metadata."CGE Predicted Phenotype" == "Spectinomycin, Streptomycin, Neomycin, Kanamycin, Lividomycin, Paromomycin, Ribostamycin, Amoxicillin, Amoxicillin+Clavulanic acid, Ampicillin, Ampicillin+Clavulanic acid, Cefotaxime, Cefoxitin, Ceftazidime, Piperacillin, Piperacillin+Tazobactam, Ticarcillin, Ticarcillin+Clavulanic acid, Cephalothin, Chloramphenicol, Trimethoprim, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
+            assert salmonella_metadata."Genotype" == "aadA1, aadA2, aadA2, aph(3'')-Ib, aph(3')-Ia, blaCMY-2, blaTEM-1B, cmlA1, dfrA12, qacE, sul1, sul3, tet(A)"
+            assert salmonella_metadata."Plasmid" == "IncFIB(K), IncFIB(S), IncFII(S)"
+            assert salmonella_metadata."Scheme" == "senterica_achtman_2"
+            assert salmonella_metadata."Sequence Type" == "66"
+            // Listeria tests
+            def listeria_metadata = iridanext_metadata.GCF_000196035
+            assert listeria_metadata."Quality Module" == "Failed"
+            assert listeria_metadata."Predicted Phenotype" == "fosfomycin"
+            assert listeria_metadata."CGE Predicted Phenotype" == "Fosfomycin"
+            assert listeria_metadata."Genotype" == "fosX"
+            assert listeria_metadata."Plasmid" == "None"
+            assert listeria_metadata."Scheme" == "listeria_2"
+            assert listeria_metadata."Sequence Type" == "35"
+            // E coli tests
+            def ecoli_metadata = iridanext_metadata.GCA_000947975
+            assert ecoli_metadata."Quality Module" == "Passed"
+            assert ecoli_metadata."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, ceftriaxone, trimethoprim, ciprofloxacin I/R, nalidixic acid, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
+            assert ecoli_metadata."CGE Predicted Phenotype" == "Streptomycin, Amoxicillin, Ampicillin, Aztreonam, Cefepime, Cefotaxime, Ceftazidime, Ceftriaxone, Piperacillin, Ticarcillin, Cephalothin, Trimethoprim, Nalidixic acid, Ciprofloxacin, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
+            assert ecoli_metadata."Genotype" == "aph(3'')-Ib, aph(6)-Id, blaCTX-M-15, blaTEM-1B, dfrA7, gyrA (S83A), qacE, sul1, sul2, tet(A)"
+            assert ecoli_metadata."Plasmid" == "IncQ1"
+            assert ecoli_metadata."Scheme" == "ecoli_achtman_4"
+            assert ecoli_metadata."Sequence Type" == "678"
+
+
+
         }
 
     }
