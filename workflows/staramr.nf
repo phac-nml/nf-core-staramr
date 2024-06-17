@@ -43,6 +43,7 @@ include { STARAMR_SEARCH } from '../modules/local/staramr/main'
 // MODULE: Installed directly from nf-core/modules
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,7 +56,7 @@ workflow STARAMR {
     // Create a new channel of metadata from a sample sheet
     // NB: `input` corresponds to `params.input` and associated sample sheet schema
     ch_input = Channel.fromSamplesheet("input")
-    ch_input.view()
+    //ch_input.view()
 
     //
     // MODULE: StarAMR
@@ -63,7 +64,26 @@ workflow STARAMR {
     STARAMR_SEARCH (
         ch_input
     )
-}
+
+    //
+    // MODULE: CSVTK_CONCAT
+    // Create a single tsv for all the outputs from summary_tsv
+    tsv_files = STARAMR_SEARCH.out.summary_tsv
+
+    ch_tsvs = tsv_files.map{
+        meta, summary_tsv -> summary_tsv
+    }.collect().map{
+        summary_tsv -> [ [id:"merged_summary"], summary_tsv]
+    }
+
+    CSVTK_CONCAT (
+        ch_tsvs,
+        "tsv",
+        "tsv"
+    )
+
+    }
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
