@@ -43,7 +43,12 @@ include { STARAMR_SEARCH } from '../modules/local/staramr/main'
 // MODULE: Installed directly from nf-core/modules
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_1 } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_2 } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_3 } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_4 } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_5 } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT as CSVTK_CONCAT_6 } from '../modules/nf-core/csvtk/concat/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,18 +71,95 @@ workflow STARAMR {
     )
 
     //
-    // MODULE: CSVTK_CONCAT
-    // Create a single tsv for all the outputs from summary_tsv
-    tsv_files = STARAMR_SEARCH.out.summary_tsv
+    // MODULE: CSVTK_CONCAT_{1..6}
+    // Create a single file for all tsv/csv files
 
-    ch_tsvs = tsv_files.map{
+    // 1) summary.tsv file
+    tsv_files_1 = STARAMR_SEARCH.out.summary_tsv
+
+    ch_tsvs_1 = tsv_files_1.map{
         meta, summary_tsv -> summary_tsv
     }.collect().map{
         summary_tsv -> [ [id:"merged_summary"], summary_tsv]
     }
 
-    CSVTK_CONCAT (
-        ch_tsvs,
+    CSVTK_CONCAT_1 (
+        ch_tsvs_1,
+        "tsv",
+        "tsv"
+    )
+
+    // 2) detailed_summary.tsv file
+    tsv_files_2 = STARAMR_SEARCH.out.detailed_summary_tsv
+
+    ch_tsvs_2 = tsv_files_2.map{
+        meta, detailed_summary_tsv -> detailed_summary_tsv
+    }.collect().map{
+        detailed_summary_tsv -> [ [id:"merged_detailed_summary"], detailed_summary_tsv]
+    }
+
+    CSVTK_CONCAT_2 (
+        ch_tsvs_2,
+        "tsv",
+        "tsv"
+    )
+
+    // 3) resfinder.tsv file
+    tsv_files_3 = STARAMR_SEARCH.out.resfinder_tsv
+
+    ch_tsvs_3 = tsv_files_3.map{
+        meta, resfinder_tsv -> resfinder_tsv
+    }.collect().map{
+        resfinder_tsv -> [ [id:"merged_resfinder"], resfinder_tsv]
+    }
+
+    CSVTK_CONCAT_3 (
+        ch_tsvs_3,
+        "tsv",
+        "tsv"
+    )
+
+    // 4) plasmidfinder.tsv file
+    tsv_files_4 = STARAMR_SEARCH.out.plasmidfinder_tsv
+
+    ch_tsvs_4 = tsv_files_4.map{
+        meta, plasmidfinder_tsv -> plasmidfinder_tsv
+    }.collect().map{
+        plasmidfinder_tsv -> [ [id:"merged_plasmidfinder"], plasmidfinder_tsv]
+    }
+
+    CSVTK_CONCAT_4 (
+        ch_tsvs_4,
+        "tsv",
+        "tsv"
+    )
+
+    // 5) mlst.tsv file
+    tsv_files_5 = STARAMR_SEARCH.out.mlst_tsv
+
+    ch_tsvs_5 = tsv_files_5.map{
+        meta, mlst_tsv -> mlst_tsv
+    }.collect().map{
+        mlst_tsv -> [ [id:"merged_mlst"], mlst_tsv]
+    }
+
+    CSVTK_CONCAT_5 (
+        ch_tsvs_5,
+        "tsv",
+        "tsv"
+    )
+
+    // 6) pointfinder.tsv file
+    tsv_files_6 = STARAMR_SEARCH.out.pointfinder_tsv
+
+    ch_tsvs_6 = tsv_files_6.map{
+        meta, pointfinder_tsv -> pointfinder_tsv
+    }.collect().map{
+        pointfinder_tsv -> [ [id:"merged_pointfinder"], pointfinder_tsv]
+    }
+
+    CSVTK_CONCAT_6 (
+        ch_tsvs_6,
         "tsv",
         "tsv"
     )
