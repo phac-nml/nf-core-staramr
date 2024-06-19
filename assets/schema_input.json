@@ -10,7 +10,7 @@
             "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "meta": ["id"],
+                "meta": ["id", "iridanext_id"],
                 "errorMessage": "Sample name must be provided and cannot contain spaces"
             },
             "contigs": {
