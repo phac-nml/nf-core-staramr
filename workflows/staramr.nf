@@ -43,7 +43,7 @@ include { STARAMR_SEARCH } from '../modules/local/staramr/main'
 // MODULE: Installed directly from nf-core/modules
 //
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { CSVTK_CONCAT } from '../modules/nf-core/csvtk/concat/main.nf'
+include { CSVTK_CONCAT } from '../modules/local/csvtk/concat/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
