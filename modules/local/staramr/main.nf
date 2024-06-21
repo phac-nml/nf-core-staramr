@@ -11,13 +11,13 @@ process STARAMR_SEARCH {
     tuple val(meta), path(contigs)
 
     output:
-    tuple val(meta), path("*_results/results.xlsx")                     , emit: results_xlsx
+    tuple val(meta), path("*_results/${meta.id}_results.xlsx")          , emit: results_xlsx
     tuple val(meta), path("*_results/${meta.id}_summary.tsv")           , emit: summary_tsv
     tuple val(meta), path("*_results/${meta.id}_detailed_summary.tsv")  , emit: detailed_summary_tsv
     tuple val(meta), path("*_results/${meta.id}_resfinder.tsv")         , emit: resfinder_tsv
     tuple val(meta), path("*_results/${meta.id}_plasmidfinder.tsv")     , emit: plasmidfinder_tsv
     tuple val(meta), path("*_results/${meta.id}_mlst.tsv")              , emit: mlst_tsv
-    tuple val(meta), path("*_results/settings.txt")                     , emit: settings_txt
+    tuple val(meta), path("*_results/${meta.id}_settings.txt")          , emit: settings_txt
     tuple val(meta), path("*_results/${meta.id}_pointfinder.tsv")       , emit: pointfinder_tsv, optional: true
     path "versions.yml"                                                 , emit: versions
 
@@ -45,13 +45,8 @@ process STARAMR_SEARCH {
         -o ${prefix}_results \\
         $genome_filename
 
-    # Change the names of output files to contain the genome name (allows for CSVTK module to concatenate files downstream)
-    mv ${prefix}_results/summary.tsv ${prefix}_results/${prefix}_summary.tsv
-    mv ${prefix}_results/detailed_summary.tsv ${prefix}_results/${prefix}_detailed_summary.tsv
-    mv ${prefix}_results/resfinder.tsv ${prefix}_results/${prefix}_resfinder.tsv
-    mv ${prefix}_results/plasmidfinder.tsv ${prefix}_results/${prefix}_plasmidfinder.tsv
-    mv ${prefix}_results/mlst.tsv ${prefix}_results/${prefix}_mlst.tsv
-    [[ -f ${prefix}_results/pointfinder.tsv ]] && mv ${prefix}_results/pointfinder.tsv ${prefix}_results/${prefix}_pointfinder.tsv || echo "No pointfinder.tsv"
+    # Add prefix ($meta.id) to the names of output files (allows for CSVTK module to concatenate files downstream)
+    for f in ${prefix}_results/* ; do mv "\$f" \$(echo \$f | sed 's;/;/${prefix}_;'); done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

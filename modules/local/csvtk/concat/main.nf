@@ -13,7 +13,7 @@ process CSVTK_CONCAT {
     val out_format
 
     output:
-    tuple path("${prefix}.${out_extension}"), emit: csv
+    path("${prefix}.${out_extension}"), emit: csv
     path "versions.yml"                                , emit: versions
 
     when:
