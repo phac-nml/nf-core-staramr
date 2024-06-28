@@ -1,0 +1,2 @@
+csvtk/concat:
+  - "modules/local/csvtk/concat/**"

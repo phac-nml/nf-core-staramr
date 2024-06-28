@@ -26,9 +26,9 @@ nextflow_pipeline {
             // Salmonella tests
             def salmonella_metadata = iridanext_metadata.GCA_000008105
             assert salmonella_metadata."Quality Module" == "Passed"
-            assert salmonella_metadata."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, amoxicillin/clavulanic acid, cefoxitin, ceftriaxone, chloramphenicol, trimethoprim, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
-            assert salmonella_metadata."CGE Predicted Phenotype" == "Spectinomycin, Streptomycin, Neomycin, Kanamycin, Lividomycin, Paromomycin, Ribostamycin, Amoxicillin, Amoxicillin+Clavulanic acid, Ampicillin, Ampicillin+Clavulanic acid, Cefotaxime, Cefoxitin, Ceftazidime, Piperacillin, Piperacillin+Tazobactam, Ticarcillin, Ticarcillin+Clavulanic acid, Cephalothin, Chloramphenicol, Trimethoprim, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
-            assert salmonella_metadata."Genotype" == "aadA1, aadA2, aadA2, aph(3'')-Ib, aph(3')-Ia, blaCMY-2, blaTEM-1B, cmlA1, dfrA12, qacE, sul1, sul3, tet(A)"
+            assert salmonella_metadata."Predicted Phenotype" == "streptomycin, kanamycin, ampicillin, amoxicillin/clavulanic acid, cefoxitin, ceftriaxone, chloramphenicol, trimethoprim, ciprofloxacin I/R, nalidixic acid, unknown[qacE_1_X68232], sulfisoxazole, tetracycline"
+            assert salmonella_metadata."CGE Predicted Phenotype" == "Spectinomycin, Streptomycin, Neomycin, Kanamycin, Lividomycin, Paromomycin, Ribostamycin, Amoxicillin, Amoxicillin+Clavulanic acid, Ampicillin, Ampicillin+Clavulanic acid, Cefotaxime, Cefoxitin, Ceftazidime, Piperacillin, Piperacillin+Tazobactam, Ticarcillin, Ticarcillin+Clavulanic acid, Cephalothin, Chloramphenicol, Trimethoprim, Nalidixic acid, Ciprofloxacin, Benzylkonium Chloride, Ethidium Bromide, Chlorhexidine, Cetylpyridinium Chloride, Sulfamethoxazole, Doxycycline, Tetracycline"
+            assert salmonella_metadata."Genotype" == "aadA1, aadA2, aadA2, aph(3'')-Ib, aph(3')-Ia, blaCMY-2, blaTEM-1B, cmlA1, dfrA12, gyrA (D87N), gyrA (S83F), qacE, sul1, sul3, tet(A)"
             assert salmonella_metadata."Plasmid" == "IncFIB(K), IncFIB(S), IncFII(S)"
             assert salmonella_metadata."Scheme" == "senterica_achtman_2"
             assert salmonella_metadata."Sequence Type" == "66"
@@ -51,8 +51,37 @@ nextflow_pipeline {
             assert ecoli_metadata."Scheme" == "ecoli_achtman_4"
             assert ecoli_metadata."Sequence Type" == "678"
 
+            // Check CSVTK_concat output (merged_*) files
 
+            // merged_detailed_summary.tsv
+            def actual_detailed_summary_tsv = path("$baseDir/tests/results/csvtk/merged_detailed_summary.tsv")
+            def expected_detailed_summary_tsv = path("$baseDir/tests/data/merged_detailed_summary.tsv")
+            assert actual_detailed_summary_tsv.readLines().sort() == expected_detailed_summary_tsv.readLines().sort()
 
+            // merged_mlst.tsv
+            def actual_mlst_tsv = path("$baseDir/tests/results/csvtk/merged_mlst.tsv")
+            def expected_mlst_tsv = path("$baseDir/tests/data/merged_mlst.tsv")
+            assert actual_mlst_tsv.readLines().sort() == expected_mlst_tsv.readLines().sort()
+
+            // merged_plasmidfinder.tsv
+            def actual_plasmidfinder_tsv = path("$baseDir/tests/results/csvtk/merged_plasmidfinder.tsv")
+            def expected_plasmidfinder_tsv = path("$baseDir/tests/data/merged_plasmidfinder.tsv")
+            assert actual_plasmidfinder_tsv.readLines().sort() == expected_plasmidfinder_tsv.readLines().sort()
+
+            // merged_pointfinder.tsv
+            def actual_pointfinder_tsv = path("$baseDir/tests/results/csvtk/merged_pointfinder.tsv")
+            def expected_pointfinder_tsv = path("$baseDir/tests/data/merged_pointfinder.tsv")
+            assert actual_pointfinder_tsv.readLines().sort() == expected_pointfinder_tsv.readLines().sort()
+
+            // merged_resfinder.tsv
+            def actual_resfinder_tsv = path("$baseDir/tests/results/csvtk/merged_resfinder.tsv")
+            def expected_resfinder_tsv = path("$baseDir/tests/data/merged_resfinder.tsv")
+            assert actual_resfinder_tsv.readLines().sort() == expected_resfinder_tsv.readLines().sort()
+
+            // merged_summary.tsv
+            def actual_summary_tsv = path("$baseDir/tests/results/csvtk/merged_summary.tsv")
+            def expected_summary_tsv = path("$baseDir/tests/data/merged_summary.tsv")
+            assert actual_summary_tsv.readLines().sort() == expected_summary_tsv.readLines().sort()
         }
 
     }

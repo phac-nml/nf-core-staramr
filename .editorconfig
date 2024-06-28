@@ -30,3 +30,7 @@ indent_style = unset
 # ignore python
 [*.{py}]
 indent_style = unset
+
+# ignore test staramr tsv files with empty columns
+[tests/data/*]
+trim_trailing_whitespace = false

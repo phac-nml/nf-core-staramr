@@ -1,0 +1,4 @@
+Isolate ID	Scheme	Sequence Type	Locus 1	Locus 2	Locus 3	Locus 4	Locus 5	Locus 6	Locus 7
+GCF_000196035	listeria_2	35	abcZ(6)	bglA(5)	cat(6)	dapE(20)	dat(1)	ldh(4)	lhkA(1)
+GCA_000008105	senterica_achtman_2	66	aroC(34)	dnaN(31)	hemD(35)	hisD(14)	purE(26)	sucA(6)	thrA(8)
+GCA_000947975	ecoli_achtman_4	678	adk(6)	fumC(6)	gyrB(5)	icd(136)	mdh(9)	purA(7)	recA(7)
