@@ -8,7 +8,7 @@ process STARAMR_SEARCH {
         'biocontainers/staramr:0.10.0--pyhdfd78af_0' }"
 
     input:
-    tuple val(meta), path(contigs)
+    tuple val(meta), path(fastq_1)
 
     output:
     tuple val(meta), path("*_results/results.xlsx")          , emit: results_xlsx
@@ -27,12 +27,12 @@ process STARAMR_SEARCH {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def is_gzipped = contigs.getName().endsWith(".gz") ? true : false
-    def genome_uncompressed_name = contigs.getName().replace(".gz", "")
+    def is_gzipped = fastq_1.getName().endsWith(".gz") ? true : false
+    def genome_uncompressed_name = fastq_1.getName().replace(".gz", "")
     def genome_filename = "${meta.id}.fasta"
     """
     if [ "$is_gzipped" = "true" ]; then
-        gzip -c -d $contigs > $genome_uncompressed_name
+        gzip -c -d $fastq_1 > $genome_uncompressed_name
     fi
 
     #Change name of input genome to allow irida-next output of metadata
