@@ -15,6 +15,7 @@
             },
             "contigs": {
                 "type": "string",
+                "format": "file-path",
                 "pattern": "^\\S+\\.f(ast|n)?a\\.gz$",
                 "errorMessage": "FASTA file containing assembled contigs, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'"
             },
